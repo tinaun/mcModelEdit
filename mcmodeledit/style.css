@@ -1,0 +1,50 @@
+canvas{
+	height: 500px;
+	width: 500px;
+}
+
+textarea{
+	height:500px;
+	width:500px;
+}
+
+#holder {
+	float:right;
+	width:510px;
+}
+
+.json-true{
+	border:2px solid green;
+}
+
+.json-false{
+	border:2px solid red;
+}
+
+div.selected-true{
+	height: 610px;
+}
+
+div.selected-false{
+	display: none;
+}
+
+li.selected-true{
+	border: 2px solid black;
+}
+
+li.selected-false{
+	color: gray;
+}
+
+
+.tablist, .tablist li{
+	list-style: none;
+	display:inline;
+	padding: 2px;
+	cursor: default;
+}
+
+img[src='invalid.png']{
+	display: none;
+};

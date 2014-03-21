@@ -1,0 +1,49 @@
+<!doctype html>
+<html ng-app='mcModelEdit'>
+	<head>
+		<meta charset='utf-8'>
+		<script src='lib/angular.min.js'></script>
+		<script src='lib/three.min.js'></script>
+
+		<script src='js/OrbitControls.js'></script>
+		<script src='js/mcGeometries.js'></script>
+		<script src='js/mcModelEdit.js'></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body ng-controller='mcCtrl'>
+		<h1>mcmodeledit</h1>
+		<div>
+			<div class='json-{{model.valid}}' id='holder' ng-controller='mcScene'>
+				<label>overlay </label>
+				<input type='checkbox' ng-model='overlay'>
+			</div>
+			<ul class='tablist'>
+				<li ng-mousedown='toggle()' class='selected-{{viewRaw}}'>raw json</li>
+				<li ng-mousedown='toggle()' class='selected-{{!viewRaw}}'>details</li>
+			</ul>
+			<div class='selected-{{viewRaw}}'>
+				<label>model json:</label>
+				<textarea ng-model='objJSON' ng-keyup='update()' placeholder='Paste Code Here'></textarea>
+				<input type='file' onchange='handleFiles(this.files, 1)'>
+				<img id='texture1' src='invalid.png'>
+				<input type='file' onchange='handleFiles(this.files, 2)'>
+				<img id='texture2'>
+			</div>
+			<div class='selected-{{!viewRaw}}'>
+				<ul>
+					<li ng-repeat='elem in elements'>
+						<p>{{elem.type}}
+						<p>{{elem.from}}
+						<p>{{elem.to}}
+						<p><input type=text ng-model='elem.rotation[1]' ng-keyup='' >
+						<p>facedata:
+						<ul><li ng-repeat='(k,v) in elem.faceData'>{{k}} : {{v.textureFacing}}</li></ul>
+					</li>
+				</ul>
+			</div>
+
+			<hr>
+			<h2>Model: {{name}}</h2>
+		</div>
+	</body>
+</html>
