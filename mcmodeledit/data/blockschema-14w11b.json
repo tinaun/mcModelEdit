@@ -1,0 +1,87 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "Minecraft Model Format",
+	"type":"object",
+	"properties":{
+		"__comment": { "description": "comment" },
+		"useAmbientOcclusion": { "type":"boolean" },
+		"inventoryRender3D": { "type":"boolean" },
+		"randomOffsetX": { "type":"boolean" },
+		"randomOffsetZ": { "type":"boolean" },
+		"elements": {
+			"type":"array",
+			"items": {
+				"title": "element",
+				"type":"object",
+				"properties":{
+					"faceData": {
+						"oneOf": [
+							{ "$ref": "#/definitions/cubeFaceData" },
+							{ "$ref": "#/definitions/face" }
+						]
+					},
+					"from": {
+						"type":"array",
+						"items":{ "type":"number" }
+						"minItems": 3,
+						"maxItems": 3
+					},
+					"to": {
+						"type":"array",
+						"items":{ "type":"number" },
+						"minItems": 3,
+						"maxItems": 3
+					},
+					"type": {
+						"type":"string",
+						"enum": [ "cube", "plane" ]
+					},
+					"facing": { "type":"string" },
+					"twosided": { "type":"boolean" }
+				},
+				"required": [ "type", "from", "to", "faceData" ]
+			},
+			"minItems": 1
+		}
+	},
+	"required": [ "elements" ],
+
+	"definitions":{
+
+		"cubeFaceData":{
+			"type":"object",
+			"properties":{
+				"__comment": { "description": "comment" },
+				"down": { "$ref": "#/definitions/face" },
+				"up": { "$ref": "#/definitions/face" },		
+				"north": { "$ref": "#/definitions/face" },
+				"south": { "$ref": "#/definitions/face" },		
+				"west": { "$ref": "#/definitions/face" },
+				"east": { "$ref": "#/definitions/face" }
+			},
+			"additionalProperties": false
+		},
+
+		"face":{
+			"type":"object",
+			"properties":{
+				"textureFacing": { 
+					"type":"string",  
+					"enum": [ "down", "up", "north", "south", "west", "east",  ]
+				},
+				"uv": {
+					"type": "array",
+					"items": { "type":"number", },
+					"minItems": 4,
+					"maxItems": 4
+				},
+				"cull": { "type":"boolean" },
+				"tint": { "type":"boolean" },
+				"overlay": { "type":"boolean" },
+				"tintOverlay": { "type":"boolean" }
+			},
+			"required": [ "uv", "textureFacing" ]
+		}						
+	}
+
+}
